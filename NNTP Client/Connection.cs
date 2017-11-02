@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Sockets;
+using System.Text;
 
 namespace NNTP_Client
 {
@@ -30,6 +32,20 @@ namespace NNTP_Client
             writer.WriteLine(command);
             writer.Flush();
             return Receive();
+        }
+
+        public string ExecuteMultiline(string command)
+        {
+            writer.WriteLine(command);
+            writer.Flush();
+            var sb = new StringBuilder();
+            string line;
+            do
+            {
+                line = Receive();
+                sb.AppendLine(line);
+            } while (line != ".");
+            return sb.ToString();
         }
     }
 }
