@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Text.RegularExpressions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NNTP_Client;
 
 namespace NNTP_Client_Tests
@@ -28,6 +29,8 @@ namespace NNTP_Client_Tests
             var connection = new Connection("news.dotsrc.org", 119);
             var result = connection.Execute("help");
             Assert.IsTrue(result.StartsWith("100"), $"result should start with 100\n{result}");
+            Assert.IsTrue(Regex.Split(result, "\r\n|\r|\n").Length > 1,
+                $"result should have more than one line\n{result}");
         }
     }
 }
