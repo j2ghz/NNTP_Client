@@ -56,7 +56,7 @@ namespace NNTP_Client
                     if (line == ".") break;
                     list.Add(line);
                 }
-                ;
+                
                 return list;
             }
         }
