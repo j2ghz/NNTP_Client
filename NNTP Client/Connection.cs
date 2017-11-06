@@ -8,6 +8,10 @@ namespace NNTP_Client
     {
         private readonly StreamReader reader;
         private readonly StreamWriter writer;
+        /// <summary>
+        /// An object to be locked so that execute methods can't steal each other's reponses
+        /// </summary>
+        private readonly object executing = new object();
 
         public Connection(string hostname, int port)
         {
@@ -15,7 +19,10 @@ namespace NNTP_Client
             ns = tcp.GetStream();
             reader = new StreamReader(ns);
             writer = new StreamWriter(ns);
-            WelcomeMessage = Receive();
+            lock (executing)
+            {
+                WelcomeMessage = Receive();
+            }
         }
 
         public string WelcomeMessage { get; }
@@ -28,24 +35,30 @@ namespace NNTP_Client
 
         public string Execute(string command)
         {
-            writer.WriteLine(command);
-            writer.Flush();
-            return Receive();
+            lock (executing)
+            {
+                writer.WriteLine(command);
+                writer.Flush();
+                return Receive();
+            }
         }
 
         public IList<string> ExecuteMultiline(string command)
         {
-            writer.WriteLine(command);
-            writer.Flush();
-            var list = new List<string>();
-            while (true)
+            lock (executing)
             {
-                var line = Receive();
-                if (line == ".") break;
-                list.Add(line);
+                writer.WriteLine(command);
+                writer.Flush();
+                var list = new List<string>();
+                while (true)
+                {
+                    var line = Receive();
+                    if (line == ".") break;
+                    list.Add(line);
+                }
+                ;
+                return list;
             }
-            ;
-            return list;
         }
     }
 }
