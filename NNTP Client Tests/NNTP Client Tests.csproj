@@ -7,8 +7,8 @@
     <ProjectGuid>{EE1FA52B-556F-43AA-97C1-8E73CF26C8CE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NNTP_Client_Tests</RootNamespace>
-    <AssemblyName>NNTP Client Tests</AssemblyName>
+    <RootNamespace>NNTP_Client.Tests</RootNamespace>
+    <AssemblyName>NNTP Client.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -48,7 +48,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientTests.cs" />
     <Compile Include="ConnectionTests.cs" />
+    <Compile Include="Models\GroupTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
