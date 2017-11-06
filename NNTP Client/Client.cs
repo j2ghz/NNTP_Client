@@ -36,9 +36,9 @@ namespace NNTP_Client
 
         public IEnumerable<Group> ListGroups()
         {
-            var response = conn.Execute("list", true);
-            ValidateResponse(response, "215");
-            var groupStrings = response.Split(new[] {"\n\r"}, StringSplitOptions.None).Skip(1);
+            var response = conn.ExecuteMultiline("list");
+            ValidateResponse(response.First(), "215");
+            var groupStrings = response.Skip(1);
             foreach (var groupString in groupStrings)
                 yield return new Group(groupString);
         }

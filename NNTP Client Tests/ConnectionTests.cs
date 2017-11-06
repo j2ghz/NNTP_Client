@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NNTP_Client;
 
@@ -35,10 +35,11 @@ namespace NNTP_Client_Tests
         public void GetHelpMessageTest()
         {
             var connection = new Connection("news.dotsrc.org", 119);
-            var result = connection.Execute("help",true);
-            Assert.IsTrue(result.StartsWith("100"), $"result should start with 100\n{result}");
-            Assert.IsTrue(Regex.Split(result, "\r\n|\r|\n").Length > 1,
+            var result = connection.ExecuteMultiline("help");
+            Assert.IsTrue(result.First().StartsWith("100"), $"result should start with 100\n{result}");
+            Assert.IsTrue(result.Count() > 1,
                 $"result should have more than one line\n{result}");
+            Assert.IsFalse(result.Last() ==".", "there should not be . at the end");
         }
     }
 }

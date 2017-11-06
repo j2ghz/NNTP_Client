@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Net.Sockets;
-using System.Text;
 
 namespace NNTP_Client
 {
@@ -26,22 +26,26 @@ namespace NNTP_Client
             return reader.ReadLine();
         }
 
-        public string Execute(string command, bool multiline = false)
+        public string Execute(string command)
         {
             writer.WriteLine(command);
             writer.Flush();
+            return Receive();
+        }
 
-            if (!multiline)
-                return Receive();
-
-            var sb = new StringBuilder();
-            string line;
-            do
+        public IList<string> ExecuteMultiline(string command)
+        {
+            writer.WriteLine(command);
+            writer.Flush();
+            var list = new List<string>();
+            while (true)
             {
-                line = Receive();
-                sb.AppendLine(line);
-            } while (line != ".");
-            return sb.ToString();
+                var line = Receive();
+                if (line == ".") break;
+                list.Add(line);
+            }
+            ;
+            return list;
         }
     }
 }

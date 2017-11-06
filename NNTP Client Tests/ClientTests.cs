@@ -25,7 +25,7 @@ namespace NNTP_Client.Tests
         public void ListGroupsTest()
         {
             var client = new Client("news.dotsrc.org", 119, "j2.00ghz@gmail.com", "209742");
-            var groups = client.ListGroups().ToList();
+            var groups = client.ListGroups();
             Assert.IsNotNull(groups);
             foreach (var group in groups)
                 Assert.IsNotNull(group.Name);
