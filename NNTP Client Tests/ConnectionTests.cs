@@ -35,7 +35,7 @@ namespace NNTP_Client_Tests
         public void GetHelpMessageTest()
         {
             var connection = new Connection("news.dotsrc.org", 119);
-            var result = connection.ExecuteMultiline("help");
+            var result = connection.Execute("help",true);
             Assert.IsTrue(result.StartsWith("100"), $"result should start with 100\n{result}");
             Assert.IsTrue(Regex.Split(result, "\r\n|\r|\n").Length > 1,
                 $"result should have more than one line\n{result}");

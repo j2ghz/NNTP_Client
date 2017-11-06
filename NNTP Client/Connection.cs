@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net.Sockets;
 using System.Text;
 
@@ -27,17 +26,14 @@ namespace NNTP_Client
             return reader.ReadLine();
         }
 
-        public string Execute(string command)
+        public string Execute(string command, bool multiline = false)
         {
             writer.WriteLine(command);
             writer.Flush();
-            return Receive();
-        }
 
-        public string ExecuteMultiline(string command)
-        {
-            writer.WriteLine(command);
-            writer.Flush();
+            if (!multiline)
+                return Receive();
+
             var sb = new StringBuilder();
             string line;
             do
