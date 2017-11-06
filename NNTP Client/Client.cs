@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
+using Group = NNTP_Client.Models.Group;
 
 namespace NNTP_Client
 {
@@ -29,6 +32,15 @@ namespace NNTP_Client
         {
             if (!response.StartsWith(expectedCode))
                 throw new Exception($"The response had unexpected status code: {expectedCode} is not {response}");
+        }
+
+        public IEnumerable<Group> ListGroups()
+        {
+            var response = conn.Execute("list", true);
+            ValidateResponse(response, "215");
+            var groupStrings = response.Split(new[] {"\n\r"}, StringSplitOptions.None).Skip(1);
+            foreach (var groupString in groupStrings)
+                yield return new Group(groupString);
         }
     }
 }
