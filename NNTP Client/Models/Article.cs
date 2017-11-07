@@ -4,13 +4,11 @@
     {
         public Article(string data)
         {
-            var indexOfSpace = data.IndexOf(' ');
-            ID = ulong.Parse(data.Substring(0, indexOfSpace));
-            var skip = data.Substring(indexOfSpace + 1);
-            var dataArr = skip.Split('\t');
-            Subject = dataArr[0];
-            From = dataArr[1];
-            Date = dataArr[2];
+            var dataArr = data.Split('\t');
+            ID = ulong.Parse(dataArr[0]);
+            Subject = dataArr[1];
+            From = dataArr[2];
+            Date = dataArr[3];
         }
 
         public ulong ID { get; set; }

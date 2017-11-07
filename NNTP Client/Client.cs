@@ -45,20 +45,22 @@ namespace NNTP_Client
                 yield return group.Substring(0, group.IndexOf(' ') + 1);
         }
 
-        public Group ChangeGroup(string group)
+        public Group ChangeGroup(string groupName)
         {
-            var response = conn.Execute($"GROUP {group}");
+            var response = conn.Execute($"GROUP {groupName}");
             ValidateResponse(response, "211");
-            if (response.Split(' ').Last() != group)
-                throw new UnexpectedCommandResponseException($"Requested {group}", response);
+            if (response.Split(' ').Last() != groupName)
+                throw new UnexpectedCommandResponseException($"Requested {groupName}", response);
             return new Group(response);
         }
 
-        public IEnumerable<Article> ListArticles(string group)
+        public IEnumerable<Article> ListArticles(string groupName)
         {
-            var response = ChangeGroup(group);
-            throw new NotImplementedException();
-
+            var group = ChangeGroup(groupName);
+            var response = conn.ExecuteMultiline($"XOVER {group.FirstArticle}-{group.LastArticle}");
+            ValidateResponse(response.First(), "224");
+            foreach (var articleString in response.Skip(1))
+                yield return new Article(articleString);
         }
 
         public class UnexpectedCommandResponseException : Exception

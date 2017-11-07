@@ -1,6 +1,8 @@
 ﻿using NNTP_Client;
 using System;
 using System.Linq;
+using System.Net.Mail;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NNTP_Client.Tests
@@ -39,6 +41,14 @@ namespace NNTP_Client.Tests
         public void ChangeGroupTest()
         {
             client.ChangeGroup("alt.politics.trump");
+        }
+
+        [TestMethod()]
+        public void ListArticlesTest()
+        {
+            var articleList = client.ListArticles("alt.politics.trump").ToList();
+            articleList.Should().NotBeNullOrEmpty();
+            articleList.Should().HaveCount(c => c > 1);
         }
     }
 }
