@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using NNTP_Client.Models;
 using Group = NNTP_Client.Models.Group;
 
 namespace NNTP_Client
@@ -51,6 +52,13 @@ namespace NNTP_Client
             if (response.Split(' ').Last() != group)
                 throw new UnexpectedCommandResponseException($"Requested {group}", response);
             return new Group(response);
+        }
+
+        public IEnumerable<Article> ListArticles(string group)
+        {
+            var response = ChangeGroup(group);
+            
+
         }
 
         public class UnexpectedCommandResponseException : Exception
