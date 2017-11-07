@@ -57,7 +57,7 @@ namespace NNTP_Client
         public IEnumerable<Article> ListArticles(string group)
         {
             var response = ChangeGroup(group);
-            
+            throw new NotImplementedException();
 
         }
 

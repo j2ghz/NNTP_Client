@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
-namespace NNTP_Client.Models
+﻿namespace NNTP_Client.Models
 {
-    class Article
+    public class Article
     {
         public Article(string data)
         {
@@ -18,20 +11,11 @@ namespace NNTP_Client.Models
             Subject = dataArr[0];
             From = dataArr[1];
             Date = dataArr[2];
-            ArticleID = ulong.Parse(dataArr[3]);
-            Size = uint.Parse(dataArr[4]);
-            Lines = uint.Parse(dataArr[5]);
         }
 
         public ulong ID { get; set; }
         public string Subject { get; set; }
         public string From { get; set; }
         public string Date { get; set; }
-        public ulong ArticleID { get; set; }
-        public uint Size { get; set; }
-        public uint Lines { get; set; }
-        ```````
     }
-
-    
 }
