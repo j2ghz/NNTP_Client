@@ -28,7 +28,9 @@ namespace NNTP_Client.Tests
             var groups = client.ListGroups();
             Assert.IsNotNull(groups);
             foreach (var group in groups)
-                Assert.IsNotNull(group.Name);
+                Assert.IsFalse(string.IsNullOrWhiteSpace(group));
         }
+
+
     }
 }
