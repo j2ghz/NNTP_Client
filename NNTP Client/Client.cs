@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using NNTP_Client.Models;
 using Group = NNTP_Client.Models.Group;
@@ -61,6 +63,13 @@ namespace NNTP_Client
             ValidateResponse(response.First(), "224");
             foreach (var articleString in response.Skip(1))
                 yield return new Article(articleString);
+        }
+
+        public Article RetriveArticle(ulong id)
+        {
+
+            throw new NotImplementedException();
+            
         }
 
         public class UnexpectedCommandResponseException : Exception

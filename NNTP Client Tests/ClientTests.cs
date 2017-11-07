@@ -1,7 +1,6 @@
 ﻿using NNTP_Client;
 using System;
 using System.Linq;
-using System.Net.Mail;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,10 +10,12 @@ namespace NNTP_Client.Tests
     public class ClientTests
     {
         private readonly Client client;
+
         public ClientTests()
         {
             client = new Client("news.dotsrc.org", 119, "j2.00ghz@gmail.com", "209742");
         }
+
         [TestMethod]
         public void ClientLoginTest()
         {
@@ -43,12 +44,19 @@ namespace NNTP_Client.Tests
             client.ChangeGroup("alt.politics.trump");
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ListArticlesTest()
         {
             var articleList = client.ListArticles("alt.politics.trump").ToList();
             articleList.Should().NotBeNullOrEmpty();
             articleList.Should().HaveCount(c => c > 1);
+        }
+
+        [TestMethod()]
+        public void RetriveArticleTest()
+        {
+            var article = client.RetriveArticle(14615);
+            article.Message.Should().NotBeEmpty();
         }
     }
 }
