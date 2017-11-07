@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NNTP Client", "NNTP Client\NNTP Client.csproj", "{07C0A1AC-4A96-432F-BDE5-5D40BD91C881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NNTP Client Tests", "NNTP Client Tests\NNTP Client Tests.csproj", "{EE1FA52B-556F-43AA-97C1-8E73CF26C8CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NNTP Client.Tests", "NNTP Client Tests\NNTP Client.Tests.csproj", "{EE1FA52B-556F-43AA-97C1-8E73CF26C8CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
