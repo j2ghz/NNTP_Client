@@ -10,8 +10,14 @@ namespace NNTP_Client.Models
         public ArticleFull(IEnumerable<string> data)
         {
             var dataList = data as IList<string> ?? data.ToList();
-            Headers = JoinAndReSplit(dataList.Skip(1).TakeWhile(s => !string.IsNullOrWhiteSpace(s)))
-                .Select(ExtractKeyValue).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            var dict = new Dictionary<string,string>();
+            foreach (var kvp in JoinAndReSplit(dataList.Skip(1).TakeWhile(s => !string.IsNullOrWhiteSpace(s)))
+                .Select(ExtractKeyValue))
+            {
+                if(dict.ContainsKey(kvp.Key))continue;
+                dict.Add(kvp.Key,kvp.Value);
+            }
+            Headers = dict;
             Message = string.Join(Environment.NewLine, dataList.SkipWhile(s => !string.IsNullOrWhiteSpace(s)));
         }
 

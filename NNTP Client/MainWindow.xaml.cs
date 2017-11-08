@@ -39,6 +39,8 @@ namespace NNTP_Client
 
         private void ListBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
+            if (VM.ArticleSelected == null) return;
+            if (VM.GroupSelected == null) return;
             VM.FullArticle = VM.client.RetriveArticle(VM.ArticleSelected.ID, VM.GroupSelected);
         }
     }
