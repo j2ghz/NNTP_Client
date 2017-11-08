@@ -16,5 +16,10 @@
         public string From { get; set; }
         public string Date { get; set; }
         public string Message { get; set; }
+
+        public override string ToString()
+        {
+            return Subject.ToString();
+        }
     }
 }

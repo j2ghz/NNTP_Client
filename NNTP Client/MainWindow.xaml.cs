@@ -21,9 +21,25 @@ namespace NNTP_Client
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        MainWindowViewModel VM = new MainWindowViewModel();
         public MainWindow()
         {
+            this.DataContext = VM;
             InitializeComponent();
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VM.Articles.Clear();
+            foreach (var artice in VM.client.ListArticles(VM.GroupSelected))
+            {
+                VM.Articles.Add(artice);
+            }
+        }
+
+        private void ListBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            VM.FullArticle = VM.client.RetriveArticle(VM.ArticleSelected.ID, VM.GroupSelected);
         }
     }
 }

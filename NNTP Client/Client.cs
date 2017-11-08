@@ -49,8 +49,8 @@ namespace NNTP_Client
         {
             var response = conn.Execute($"GROUP {groupName}");
             ValidateResponse(response, "211");
-            if (response.Split(' ').Last() != groupName)
-                throw new UnexpectedCommandResponseException($"Requested {groupName}", response);
+            //if (response.Split(' ').Last() != groupName)
+            //    throw new UnexpectedCommandResponseException($"Requested {groupName}", response);
             return new Group(response);
         }
 

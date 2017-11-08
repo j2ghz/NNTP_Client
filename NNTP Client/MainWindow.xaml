@@ -6,7 +6,8 @@
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:NNTP_Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1000">
+        Title="MainWindow" Height="700" Width="1000"
+                      d:DataContext="{d:DesignInstance local:MainWindowViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -25,16 +26,12 @@
         <TextBox Grid.Column="0" Grid.Row="0" Margin="0,0,0,10">
 
         </TextBox>
-        <ListBox Grid.Column="0" Grid.Row="2">
-
-        </ListBox>
+        <ListBox Grid.Column="0" Grid.Row="2" ItemsSource="{Binding Groups}" SelectedItem="{Binding GroupSelected}" SelectionChanged="ListBox_SelectionChanged"/>
 
         <TextBox Grid.Column="1" Grid.Row="0" Margin="0,0,0,10">
 
         </TextBox>
-        <ListBox Grid.Column="1" Grid.Row="2">
-
-        </ListBox>
+        <ListBox Grid.Column="1" Grid.Row="2" ItemsSource="{Binding Articles}" SelectedItem="{Binding ArticleSelected}" SelectionChanged="ListBox_SelectionChanged_1"/>
 
         <Button Grid.Column="2" Grid.Row="0" Content="Post Article" MinWidth="100" HorizontalAlignment="Left" Margin="0,0,0,10">
 
