@@ -50,17 +50,14 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Content="Subject " DockPanel.Dock="Top" Grid.Column="0" Grid.Row="0"/>
-                <Label Content="Author " DockPanel.Dock="Top" Grid.Column="0" Grid.Row="1"/>
-                <Label Content="Date:" DockPanel.Dock="Top" Grid.Column="0" Grid.Row="2"/>
-                
+                <Label Content="Subject " Grid.Column="0" Grid.Row="0"/>
+                <Label Content="Author " Grid.Column="0" Grid.Row="1"/>
+                <Label Content="Date:" Grid.Column="0" Grid.Row="2"/>
+                <TextBlock Grid.Column="1" Grid.Row="0"/>
+                <TextBlock Grid.Column="1" Grid.Row="1"/>
+                <TextBlock Grid.Column="1" Grid.Row="2"/>
             </Grid>
-            
-                
-            
-            <ListBox DockPanel.Dock="Bottom">
-                
-            </ListBox>
+            <TextBlock DockPanel.Dock="Bottom"/>
         </DockPanel>
         
 
