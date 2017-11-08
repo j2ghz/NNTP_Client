@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 
 namespace NNTP_Client
 {
     public class Connection
     {
-        private readonly StreamReader reader;
-        private readonly StreamWriter writer;
         /// <summary>
-        /// An object to be locked so that execute methods can't steal each other's reponses
+        ///     An object to be locked so that execute methods can't steal each other's reponses
         /// </summary>
         private readonly object executing = new object();
+
+        private readonly StreamReader reader;
+        private readonly StreamWriter writer;
 
         public Connection(string hostname, int port)
         {
@@ -28,7 +30,7 @@ namespace NNTP_Client
         public string WelcomeMessage { get; }
         public NetworkStream ns { get; }
 
-        public string Receive()
+        private string Receive()
         {
             return reader.ReadLine();
         }
@@ -49,14 +51,15 @@ namespace NNTP_Client
             {
                 writer.WriteLine(command);
                 writer.Flush();
-                var list = new List<string>();
+                var list = new List<string> {Receive()};
+                if (!list.First().StartsWith("2")) return list;
                 while (true)
                 {
                     var line = Receive();
                     if (line == ".") break;
                     list.Add(line);
                 }
-                
+
                 return list;
             }
         }

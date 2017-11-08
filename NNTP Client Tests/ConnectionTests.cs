@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NNTP_Client;
 
@@ -31,15 +32,14 @@ namespace NNTP_Client_Tests
             Assert.IsTrue(result.StartsWith("500"), $"result should start with 500\n{result}");
         }
 
+
         [TestMethod]
-        public void GetHelpMessageTest()
+        public void InvalidMultilineTest()
         {
             var connection = new Connection("news.dotsrc.org", 119);
-            var result = connection.ExecuteMultiline("help");
-            Assert.IsTrue(result.First().StartsWith("100"), $"result should start with 100\n{result}");
-            Assert.IsTrue(result.Count() > 1,
-                $"result should have more than one line\n{result}");
-            Assert.IsFalse(result.Last() ==".", "there should not be . at the end");
+            var result = connection.ExecuteMultiline(".");
+            result.Should().HaveCount(1);
+            result.First().Should().StartWith("5");
         }
     }
 }

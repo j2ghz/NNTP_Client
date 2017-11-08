@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using NNTP_Client.Models;
 using Group = NNTP_Client.Models.Group;
@@ -65,11 +63,12 @@ namespace NNTP_Client
                 yield return new Article(articleString);
         }
 
-        public Article RetriveArticle(ulong id)
+        public ArticleFull RetriveArticle(ulong id, string groupName)
         {
-
-            throw new NotImplementedException();
-            
+            ChangeGroup(groupName);
+            var response = conn.ExecuteMultiline($"ARTICLE {id}");
+            ValidateResponse(response.First(), "220");
+            return new ArticleFull(response);
         }
 
         public class UnexpectedCommandResponseException : Exception

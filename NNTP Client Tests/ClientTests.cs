@@ -1,5 +1,4 @@
-﻿using NNTP_Client;
-using System;
+﻿using System;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -52,11 +51,15 @@ namespace NNTP_Client.Tests
             articleList.Should().HaveCount(c => c > 1);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void RetriveArticleTest()
         {
-            var article = client.RetriveArticle(14615);
-            article.Message.Should().NotBeEmpty();
+            var article = client.RetriveArticle(25508, "alt.politics.trump");
+            article.Should().NotBeNull();
+            article.Date.Should().NotBeNullOrWhiteSpace();
+            article.From.Should().NotBeNullOrWhiteSpace();
+            article.Subject.Should().NotBeNullOrWhiteSpace();
+            article.Message.Should().NotBeNullOrWhiteSpace();
         }
     }
 }
